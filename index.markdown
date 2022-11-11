@@ -9,8 +9,6 @@ nav_order: 1
 
 ![](../../assets/images/JohannesThomaPressefoto2021Klein.jpg)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ANMUAua7-kw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 This is my personal site about software development and related
 topics. I am Software Developer since many years now (started
 programming at the age of 10 -- 38 years ago) and am specialized
