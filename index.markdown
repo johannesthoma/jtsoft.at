@@ -7,6 +7,12 @@ nav_order: 1
 ---
 # [](#header-1)Software Developer Johannes Thoma
 
+{% highlight c %}
+while (foo) {
+	bar();
+}
+{% endhighlight %}
+
 ![](../../assets/images/JohannesThomaPressefoto2021Klein.jpg)
 
 This is my personal site about software development and related
