@@ -2,28 +2,34 @@
 layout: page
 title: WinDRBD
 permalink: /WinDRBD/
+nav_order: 3
+parent: Projects
 ---
 
-x123 
+# [](#header-1)WinDRBD - DRBD For Microsoft Windows
 
-This is my personal site about software development and related
-topics. I am Software Developer since many years now (started
-programming at the age of 10 -- 38 years ago) and am specialized
-in systems programming (mostly C stuff).
+WinDRBD is a Windows kernel driver that provides (almost)
+the same functionality as DRBD under Linux. It is based
+on DRBD 9 and uses the original DRBD source code wrapped
+in a compatility layer that makes it possible to run
+DRBD within Windows NT kernels.
 
-I am currently working on Open Source projects on behalf of
-[LINBIT](https://www.linbit.com) (a Vienna based company
-focussed on OpenSource Software Defined Storage (SDS)
-solutions for Cloud computing and related fields.
+By using WinDRBD one can implement high availablility
+(HA) on Windows servers or even mix Linux and Windows
+servers. In such a scenario, if a node fails another
+node can take over the services (like databases, web
+servers and so on). This makes it possible to achieve
+almost 100% availability for internet servers.
 
-Besides programming I also play [Jazz Piano](http://www.johannesthoma.com)
-and love to travel together with Nooshin my love.
+![](../../assets/images/WinDRBD_Connections-1024x645.png)
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+As the image outlines, WinDRBD translates DRBD API calls
+(which are Linux kernel specific) to Windows NT kernel
+API calls. This is done for storage, networking and
+user node level interfaces (resource configuration via
+netlink and providing storage interface for the WinDRBD
+resources).
 
+Also shown is that WinDRBD can talk seamlessly to Linux
+DRBD which makes mixed Linux/Windows setups with up to
+32 nodes possible.
