@@ -1,9 +1,11 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
-layout: home
+layout: page
+title: WinDRBD
+permalink: /WinDRBD/
 ---
+
+x123 
+
 This is my personal site about software development and related
 topics. I am Software Developer since many years now (started
 programming at the age of 10 -- 38 years ago) and am specialized
@@ -16,4 +18,12 @@ solutions for Cloud computing and related fields.
 
 Besides programming I also play [Jazz Piano](http://www.johannesthoma.com)
 and love to travel together with Nooshin my love.
+
+{% highlight ruby %}
+def print_hi(name)
+  puts "Hi, #{name}"
+end
+print_hi('Tom')
+#=> prints 'Hi, Tom' to STDOUT.
+{% endhighlight %}
 
