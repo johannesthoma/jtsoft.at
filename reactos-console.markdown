@@ -42,5 +42,18 @@ virsh console ReactOS
 
 After a few seconds, you should see ReactOS debug messages.
 
-Note: This works with any OS that logs to a serial port. For
+To stop viewing the console, press Ctrl-[ (it is the Escape
+Character).
+
+To view the console and logging into a file you can pipe
+the command into the UNIX tee utility, as in:
+
+{% highlight bash %}
+virsh console ReactOS | tee -a mylogfile.txt
+{% endhighlight %}
+
+(the -a tell tee not to truncate an existing logfile, it appends
+output to a file if it exists).
+
+Note: Viewing the console works with any OS that logs to a serial port. For
 example, Linux can be configured to log to the serial port.
