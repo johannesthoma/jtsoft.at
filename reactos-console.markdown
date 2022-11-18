@@ -32,7 +32,7 @@ First you start ReactOS using
 virsh start ReactOS
 {% endhighlight %}
 
-and select ReactOS(Debug) in the boot menu (this is the default).
+and select ReactOS(Debug) in the boot menu.
 
 Then you can see the console with the command:
 
@@ -42,7 +42,7 @@ virsh console ReactOS
 
 After a few seconds, you should see ReactOS debug messages.
 
-To stop viewing the console, press Ctrl-[ (it is the Escape
+To stop viewing the console, press Ctrl-] (it is the Escape
 Character).
 
 To view the console and logging into a file you can pipe
@@ -52,7 +52,7 @@ the command into the UNIX tee utility, as in:
 virsh console ReactOS | tee -a mylogfile.txt
 {% endhighlight %}
 
-(the -a tell tee not to truncate an existing logfile, it appends
+(the -a tells tee not to truncate an existing logfile, it appends
 output to a file if it exists).
 
 Note: Viewing the console works with any OS that logs to a serial port. For
