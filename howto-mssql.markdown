@@ -21,7 +21,8 @@ To do so,
     the Downloads directory)
 2. Right Click the File and select Run As Administrator
 3. Select Basic Settings
-4. Wait about 10 - 15 minutes
+4. When prompted for the License click Accept
+5. Wait about 10 - 15 minutes
 
 Then Install SQL Server Management Studio from [this Location](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms-19?view=sql-server-ver16). It will be used to configure the location of the database files.  
 When installation is finished, start Management Studio (from the Start Menu)
