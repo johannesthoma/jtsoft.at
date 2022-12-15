@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Configure SecureShell (ssh) access on Windows
+title: Configure ssh access on Windows
 permalink: /windows-ssh/
 nav_order: 23
 parent: Howtos
