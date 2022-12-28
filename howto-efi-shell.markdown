@@ -69,3 +69,6 @@ as in:
     ipxe.efi
 
 That's it.
+
+Note that (at least my) EFI shell supports basic command history
+and tab completion.
