@@ -14,6 +14,18 @@ Make resource Primary on Linux
 
 kpartx -a /dev/drbd<n>
 
-# TODO: how to find name:
-mount /dev/dm-?
+mkdir mnt
 
+mount /dev/mapper/drbd<n>p<m> mnt
+
+example:
+mount /dev/mapper/drbd50p4 mnt
+
+example: copy windrbd driver:
+
+cp windrbd-hardcoded-url.sys mnt/Windows/System32/drivers/windrbd.sys
+
+sudo umount mnt
+sudo kpartx -d /dev/drbd<n>
+Make resource Secondary on Linux
+Make resource Primary on Windows
