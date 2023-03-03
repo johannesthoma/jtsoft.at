@@ -39,6 +39,13 @@ done
 I use it during development to test the DRBD reactor port I am
 currently working on.
 
+As with any shell script or executable program the UNIX
+eXecute permission has to be set. To do so, type
+
+{% highlight bash %}
+chmod 755 /home/Administrator/myservice.sh
+{% endhighlight %}
+
 Note that now you can start and stop the service just like any
 other service with the ``sc`` (or ``net``) ``start/stop``
 commands:

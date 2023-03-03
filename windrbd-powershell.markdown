@@ -24,12 +24,12 @@ WinDRBD minor number (which is unique on a single host).
 
 So, here's the PowerShell command, ready for copy&paste:
 
-    Get-Disk | where { $_.Path -like "*WinDRBD{0}*" -f 42 }
+    Get-Disk | where { $_.Path -like "*#WinDRBD{0}#*" -f 42 }
 
 All you need to do is to substitute 42 by your WinDRBD
 minor number. You then can assign it to a variable:
 
-    $mydisk = Get-Disk | where { $_.Path -like "*WinDRBD{0}*" -f 42 }
+    $mydisk = Get-Disk | where { $_.Path -like "*#WinDRBD{0}#*" -f 42 }
 
 and for example list partitions on it:
 
@@ -37,7 +37,7 @@ and for example list partitions on it:
 
 Of course also directly:
 
-    Get-Disk | where { $_.Path -like "*WinDRBD{0}*" -f 42 } | Get-Partition
+    Get-Disk | where { $_.Path -like "*#WinDRBD{0}#*" -f 42 } | Get-Partition
 
 Going into details:
 
@@ -62,18 +62,21 @@ The $_ is substituted by whatever Get-Disk pipes into it.
 Now, one can use the -like operator (don't confuse it with the
 -contains operator - the naming is sometimes strange):
 
-    Get-Disk | where { $_.Path -like "*WinDRBD42*" }
+    Get-Disk | where { $_.Path -like "*#WinDRBD42#*" }
+
+The hash is part of the path component. It is to avoid matching
+WinDRBD disks 420, 421, and so on.
 
 Last step is to take the minor number and format it into the
 string. This is done via the -f option to string objects
 (yes also the syntax is sometimes strange): {0} is substituted
 by what follows the -f.
 
-    "*WinDRBD{0}*" -f 42
+    "*#WinDRBD{0}#*" -f 42
 
 So again the full powershell script to select WinDRBD disks by
 minor numbers is:
 
-    Get-Disk | where { $_.Path -like "*WinDRBD{0}*" -f 42 }
+    Get-Disk | where { $_.Path -like "*#WinDRBD{0}#*" -f 42 }
 
 That's it :) Happy hacking!
