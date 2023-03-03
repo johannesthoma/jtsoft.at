@@ -2,7 +2,7 @@
 layout: page
 title: Some useful netsh commands
 permalink: /netsh/
-nav_order: 4 
+nav_order: 28
 parent: Howtos
 ---
 
