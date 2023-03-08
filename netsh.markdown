@@ -28,7 +28,7 @@ the active node.
 
 To delete it, do
 
-    netsh interface ipv4 add address "Ethernet 4" 10.43.224.99
+    netsh interface ipv4 delete address "Ethernet 4" 10.43.224.99
 
 And very useful in case you have DHCP problems:
 
