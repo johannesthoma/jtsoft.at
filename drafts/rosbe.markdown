@@ -53,15 +53,35 @@ cd output-may-2023-2
 /path/to/reactos/configure.sh -D_WINKD_:BOOL=FALSE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
 ninja bootcd
 
+--
+cd reactos-2023/reactos/output-may-2023-2
 ---
+i686-w64-mingw32-gdb
+(also works with normal gdb?)
+
+file symbols/ntoskrnl.exe
 add-symbol-file ./symbols/ntoskrnl.exe 0x80801000
 
 offset is start of .text section (use i686-w64-mingw32-objdump -h ./ntoskrnl.exe to find it there the VMA address) and then add 0x80000000
 
+TODO: this is needed? 
 set solib-search-path ./symbols
-# file symbols/ntoskrnl.exe
+
+This is not needed since we 
 # set architecture i386:x86-64
 target remote 10.43.224.40:1234
+
+stops in ?? use
+
+bt
+
+to see backtrace (with correct symbols)
+
+then fin
+
+and (for example)
+
+list '@KiIdleLoop@0'
 
 to name functions containing a @ put the function name into single
 quotes: like:
