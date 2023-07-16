@@ -14,19 +14,54 @@ statements (in contrast to the Windows Kernel debugger)  and
 many more things.
 
 We will show how to setup a virtual machine on top of a Linux
-host using libvirt (virsh and virt-manager).
+host using libvirt (virsh and virt-manager) and how to use
+gdb to debug the ReactOS inside this VM.
 
-To debug ReactOS one has to configure it for GDB first and
-then build it. This assumes that you already have the
-ReactOS build environment installed on your Linux box.
+## Step 1: Get the ReactOS build environment (RosBE) working.
 
-git clone https://github.com/reactos/reactos.git
+Download RosBE from following location:
+
+    https://reactos.org/wiki/Build_Environment
+
+It will be a file named `RosBE-Unix-2.2.1.tar.bz2`. Alway
+pick the latest version.
+
+Untar it using
+
+    tar jxf RosBE-Unix-2.2.1.tar.bz2
+
+You might have to change the version number.
+
+Then inside the extracted directory run RosBE-Builder.sh as follows:
+
+    cd RosBE-Unix-2.2.1
+    ./RosBE-Builder.sh
+
+Answer the questions
+TODO: do again and check
+
+## Step 2: 
+
+Get the current source code. Development is made against
+the master branch there are also other branches starting
+with ``releases`` (such as releases/0.4.14). We will 
+now use the master branch since we want to do some
+debugging and development.
+
+So here we go:
+
+    git clone https://github.com/reactos/reactos.git
+
+The master branch should be checked out initially so
+no need to switch branches now.
 
 # cd output-i686-mingw-newbuild
 mkdir output-may-2023-2
 cd output-may-2023-2
 # wont boot when _WINKD_ is given:
-/path/to/reactos/configure.sh -D_WINKD_:BOOL=FALSE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
+# /path/to/reactos/configure.sh -D_WINKD_:BOOL=FALSE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
+update: do not
+
 ninja bootcd
 sudo apt install rosbe-unix
 
@@ -43,10 +78,6 @@ then add
 xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'at the end (before /domain after /devices)
 
 ---
-building gdb (does not work):
-sudo apt install libreadline-dev
-	(no)
-
 https://reactos.org/wiki/GDB
 
 building RoSBE:

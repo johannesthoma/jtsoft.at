@@ -50,7 +50,10 @@ git clone https://github.com/reactos/reactos.git
 mkdir output-may-2023-2
 cd output-may-2023-2
 # wont boot when _WINKD_ is given:
-/path/to/reactos/configure.sh -D_WINKD_:BOOL=FALSE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
+# works with reactos 0.4.14 but not with master:
+# /path/to/reactos/configure.sh -D_WINKD_:BOOL=FALSE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
+# this works??
+..//configure.sh -D_WINKD_:BOOL=TRUE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
 ninja bootcd
 
 --
@@ -60,7 +63,11 @@ i686-w64-mingw32-gdb
 (also works with normal gdb?)
 
 file symbols/ntoskrnl.exe
-add-symbol-file ./symbols/ntoskrnl.exe 0x80801000
+# add-symbol-file ./symbols/ntoskrnl.exe 0x80801000
+
+cd symbols
+add-symbol-file ./ntoskrnl.exe 0x80401000
+add-symbol-file ./kdcom.dll 0x80085000
 
 offset is start of .text section (use i686-w64-mingw32-objdump -h ./ntoskrnl.exe to find it there the VMA address) and then add 0x80000000
 
