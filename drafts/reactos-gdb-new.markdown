@@ -14,8 +14,19 @@ statements (in contrast to the Windows Kernel debugger)  and
 many more things.
 
 We will show how to setup a virtual machine on top of a Linux
-host using libvirt (virsh and virt-manager) and how to use
+host using libvirt (virsh and virt-install) and how to use
 gdb to debug the ReactOS inside this VM.
+
+Note that there are two ways to debug ReactOS:
+
+ * via the gdb support built into ReactOS.
+ * via the gdb support built into qemu
+
+Since qemu offers more features we will use this approach
+in this guide. If you install ReactOS on physical hardware
+(for example when you write a driver for a new device)
+then you need to debug it via the gdb support built into
+ReactOS via a serial cable.
 
 ## Step 1: Get the ReactOS build environment (RosBE) working.
 
@@ -40,7 +51,7 @@ Then inside the extracted directory run RosBE-Builder.sh as follows:
 Answer the questions
 TODO: do again and check
 
-## Step 2: 
+## Step 2: Check out current ReactOS source code
 
 Get the current source code. Development is made against
 the master branch there are also other branches starting
@@ -55,27 +66,79 @@ So here we go:
 The master branch should be checked out initially so
 no need to switch branches now.
 
-# cd output-i686-mingw-newbuild
-mkdir output-may-2023-2
-cd output-may-2023-2
-# wont boot when _WINKD_ is given:
-# /path/to/reactos/configure.sh -D_WINKD_:BOOL=FALSE -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE -DKDBG:BOOL=FALSE
-update: do not
+## Step 3: Configure and build ReactOS
 
-ninja bootcd
-sudo apt install rosbe-unix
+ReactOS is built in separate directories. By doing so
+one can have several different builds and the source
+directories are kept clean.
 
-/usr/RosBE/RosBE.sh
+When debugging via the qemu gdb support one has only to
+tell the build system that binaries containing debug
+symbols should be used. You can use any directory
+name instead
 
----
+    mkdir output-gdb
+    cd output-gdb
+    ../configure.sh -DSEPARATE_DBG:BOOL=TRUE
+    ninja bootcd
+
+When debugging with the built in ReactOS gdb support
+you need to enable it: configure it with
+
+    ../configure.sh -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE
+
+TODO: recheck this...
+
+## Step 4: Create a virtual machine using virt install
+
+To create a virtual machine, you can use virt-install
+as follows (you may want to adjust some parameters):
+
+    virt-install --name virt-install2 --vcpus 1 --ram 4096 --cdrom ./bootcd.iso --disk size=40 --graphics vnc,port=5970,listen=0.0.0.0 --arch i386
+
+TODO: no autostart after install  ...
+TODO: and leave the cdrom attached
+
+Use this inside the output directory.
+
+## Step 5: Install ReactOS
+
+With a VNC viewer of your choice connect to the graphical
+console if the new VM. The IP address should be the one
+of the Linux machine where the VM is running on and the
+port is the one specified in the virt-install call.
+
+Example would be:
+
+# TODO: check this
+    vncviewer 10.43.224.40:5970
+
+
+Press Enter ....
+
+Then do 
+
+    virsh start <vm-name>
+(not necessary)
+
+## Step 6: Prepare VM for use with gdb
 
 add xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0' to first line
 then add
   <qemu:commandline>
-    <qemu:arg value='-s'/>
-    <qemu:arg value='-S'/>
+    <qemu:arg value='-gdb'/>
+    <qemu:arg value='tcp::2000'/>
   </qemu:commandline>
-xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'at the end (before /domain after /devices)
+  <emulator>/usr/bin/qemu-system-i386</emulator>
+
+## Step 7: Attach gdb to a running ReactOS VM.
+
+
+## Step 8: Load the symbols
+
+
+## Step 9: You're done :)
+---
 
 ---
 https://reactos.org/wiki/GDB
@@ -139,6 +202,7 @@ Change:
 <type arch='i686' machine='pc-i440fx-bionic'>hvm</type>
 and
 <emulator>/usr/bin/qemu-system-i386</emulator>
+inside <devices>
 
 ---
 
