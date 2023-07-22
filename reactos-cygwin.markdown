@@ -44,7 +44,7 @@ as follows:
 
  * Add
     http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/2016/08/30/104223
-   as mirror.
+   as mirror. Be sure there is no extra whitespace after the link.
 
   * Click next until you can select packages
 
