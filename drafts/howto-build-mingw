@@ -1,0 +1,3 @@
+download from sourceforge
+
+./configure --host=i686-w64-mingw32 --with-sysroot=/home/johannes/mingw-bin --prefix=/home/johannes/mingw-bin

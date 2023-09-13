@@ -68,6 +68,8 @@ no need to switch branches now.
 
 ## Step 3: Configure and build ReactOS
 
+TODO: switch to RoSBE mode ...
+
 ReactOS is built in separate directories. By doing so
 one can have several different builds and the source
 directories are kept clean.
