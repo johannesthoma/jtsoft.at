@@ -196,6 +196,36 @@ quotes: like:
 
 p '@KiIdleLoop@0'
 
+
+
+when drivers are loaded a message
+	Loading ..../mydriver.sys at F283C000 with 1476 pages
+appears on the console.
+
+.text address is 0xF283C000 + offset of .text section (objdump -h mydriver.sys)
+rounded up to the next page size (usually 4k = 0x1000).
+
+So to add symbols for a driver in our case (offset is 0x400) do
+
+add-symbol-file /home/johannes/windrbd.sys 0xf283d000
+
+Note that remove-symbol-file /home/johannes/windrbd.sys
+only removes the change made by the oldest add-symbol-file
+command. So to remove all add-symbol-file instances you
+have to repeat the remove-symbol-file /home/johannes/windrbd.sys
+until it says No symbol file found
+
+remove-symbol-file takes absolute path
+to clear all symbol file entries (do this after resetting the target) use
+symbol-file
+
+break on blue screen:
+break RtlpBreakWithStatusInstruction@0
+or better: (update: no because there is the internal kernel debugger))
+break KeBugCheckEx@20
+
+RtlpBreakWithStatusInstruction@0
+
 ----
 Use qemu-system-i386
 
@@ -212,3 +242,20 @@ Debug symbols are in
 output-xxxx/symbols
 
 Take ntoskrnl.exe from there.
+
+----
+
+target remote localhost:2001
+add-symbol-file ntoskrnl.exe 0x80401000
+add-symbol-file windrbd.sys 0xF512C000
+
+----
+
+Use gdb 13.2 with newest binutils: a bug that caused 
+	wrong source file names to be picked has been
+	fixed therein.
+
+Configure with:
+	./configure --target=i686-w64-mingw32 --program-prefix=i686-w64-mingw32-13.2-
+
+	or so --prefix is something like /usr/local I think
