@@ -245,6 +245,8 @@ Take ntoskrnl.exe from there.
 
 ----
 
+cd ~/reactos-symbols
+i686-w64-mingw32-13.2-gdb
 target remote localhost:2001
 add-symbol-file ntoskrnl.exe 0x80401000
 add-symbol-file windrbd.sys 0xF512C000

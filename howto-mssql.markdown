@@ -12,7 +12,7 @@ This howto guide explains how to download, install and configure
 the backing storage for MS SQL Server 2019 Express. I used it
 to test if MS SQL server runs atop of [WinDRBD](https://www.github.com/LINBIT/WinDRBD).
 
-First, download the installer from [this Location](https://www.microsoft.com/en-us/Download/details.aspx?id=101064)
+First, download the installer from [this Location](https://www.microsoft.com/en-us/evalcenter/download-sql-server-2019)
 
 Run the installer as Administrator (EVEN if you are logged in as Administrator)
 To do so,
