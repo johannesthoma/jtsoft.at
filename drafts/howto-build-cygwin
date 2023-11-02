@@ -1,6 +1,7 @@
 Container:
 
 install shilka (need to compile it on Linux)
+TODO: can also build in docker container?
 (run make install inside docker container)
 
 apt install gawk
@@ -14,7 +15,16 @@ make install
 TODO: # apt install binutils-multiarch-dev
 # must install bfd.h for mingw
 wget https://ftp.gnu.org/gnu/binutils/binutils-2.41.tar.gz
+tar zxf binutils-2.41.tar.gz && cd binutils-2.41
+# ./configure --prefix=/usr --host=x86_64-pc-cygwin --program-prefix=x86_64-pc-cygwin-
+./configure --prefix=/usr/x86_64-pc-cygwin/sys-root/usr --host=x86_64-pc-cygwin 
+make -j 8
+make install
+TODO: still needed? dumper is now disabled and the libs seem to be bfd dependencies
 
+# GNU gettext:
+
+------
 make sure x86_64-pc-cygwin-gcc and x86_64-w64-mingw32-g++ are in
 the PATH
 (need to add /root/.zranoe/... to PATH)
@@ -28,6 +38,8 @@ make -j 8
 
 cygwin dll:
 
-cd build/winsup
+# cd build/x86_64-pc-cygwin/winsup
+cd ./x86_64-pc-cygwin/winsup
 # /cygwin-sources/newlib-cygwin/winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin
-../../../winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin
+../../../winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin --disable-dumper
+make -j 8
