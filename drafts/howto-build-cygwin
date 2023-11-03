@@ -43,3 +43,19 @@ cd ./x86_64-pc-cygwin/winsup
 # /cygwin-sources/newlib-cygwin/winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin
 ../../../winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin --disable-dumper
 make -j 8
+
+-----
+
+Then:
+
+cd build-oct-2023/x86_64-pc-cygwin/winsup/cygwin 
+rm libcygwin-static.a
+# find . -name \*.o | xargs ar rcs libcygwin-static.a
+# find . -name \*.o -not -path ./lib/\* | xargs ar rcs libcygwin-static.a
+
+take libc libm libg from newlib
+exclude main function:
+
+# find . -name \*.o -not -path ./lib/libcmain.o | xargs ar rcs libcygwin-static.a 
+also exclude ctype (need to patch newlib instead)
+find . -name \*.o -not -path ./lib/libcmain.o -not -path ctype.o | xargs ar rcs libcygwin-static.a
