@@ -251,6 +251,9 @@ target remote localhost:2001
 add-symbol-file ntoskrnl.exe 0x80401000
 add-symbol-file windrbd.sys 0xF512C000
 
+break before calling driver init function (but after driver is loaded):
+break ../ntoskrnl/io/iomgr/driver.c:631
+
 ----
 
 Use gdb 13.2 with newest binutils: a bug that caused 
@@ -261,3 +264,8 @@ Configure with:
 	./configure --target=i686-w64-mingw32 --program-prefix=i686-w64-mingw32-13.2-
 
 	or so --prefix is something like /usr/local I think
+
+-----
+
+Enable/disable logging:
+p *(int*)(((char*)(&Kd_TCPIP_Mask))+0x80000000) = 0x800

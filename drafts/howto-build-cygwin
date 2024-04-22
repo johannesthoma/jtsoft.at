@@ -8,6 +8,7 @@ apt install gawk
 # apt install zlib1g-dev
 # must install zlib.h for mingw
 wget https://zlib.net/zlib-1.3.tar.gz
+tar zxf zlib-1.3.tar.gz && cd zlib-1.3
 CC=x86_64-w64-mingw32-gcc LDSHAREDLIBC= ./configure --prefix=/root/.zeranoe/mingw-w64/x86_64/x86_64-w64-mingw32
 make -j 8
 make install
@@ -41,6 +42,7 @@ cygwin dll:
 # cd build/x86_64-pc-cygwin/winsup
 cd ./x86_64-pc-cygwin/winsup
 # /cygwin-sources/newlib-cygwin/winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin
+rm ./config.cache
 ../../../winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin --disable-dumper
 make -j 8
 
