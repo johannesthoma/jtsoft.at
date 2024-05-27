@@ -36,6 +36,7 @@ cd winsup && ./autogen.sh && cd ..
 mkdir build && cd build
 ../configure --host x86_64-pc-cygwin CC_FOR_TARGET=x86_64-pc-cygwin-gcc --disable-doc
 make -j 8
+	(will complain about windrbd.h include missing)
 
 cygwin dll:
 
@@ -61,3 +62,15 @@ exclude main function:
 # find . -name \*.o -not -path ./lib/libcmain.o | xargs ar rcs libcygwin-static.a 
 also exclude ctype (need to patch newlib instead)
 find . -name \*.o -not -path ./lib/libcmain.o -not -path ctype.o | xargs ar rcs libcygwin-static.a
+
+----
+
+To see debug prints (debug_print()), do:
+
+	strace -m 1 <cmdline>
+sample:
+	strace -m 1 drbdadm --version
+
+Be sure that the instrumented cygwin1.dll is used (have to cd in
+the directory C:\Program Files\WinDRBD where it is installed).
+
