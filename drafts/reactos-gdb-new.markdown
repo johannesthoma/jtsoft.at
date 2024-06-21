@@ -250,6 +250,7 @@ i686-w64-mingw32-13.2-gdb
 target remote localhost:2001
 add-symbol-file ntoskrnl.exe 0x80401000
 add-symbol-file windrbd.sys 0xF512C000
+add-symbol-file windrbd.sys 0xF50D2000
 
 break before calling driver init function (but after driver is loaded):
 break ../ntoskrnl/io/iomgr/driver.c:631
@@ -268,4 +269,5 @@ Configure with:
 -----
 
 Enable/disable logging:
-p *(int*)(((char*)(&Kd_TCPIP_Mask))+0x80000000) = 0x800
+
+     p *(int*)(((char*)(&Kd_TCPIP_Mask))+0x80000000) = 0x800

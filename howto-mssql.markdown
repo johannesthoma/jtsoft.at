@@ -25,7 +25,7 @@ To do so,
 5. Wait about 10 - 15 minutes
 
 Then Install SQL Server Management Studio from [this Location](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms-19?view=sql-server-ver16). It will be used to configure the location of the database files.  
-When installation is finished, start Management Studio (from the Start Menu)
+When installation is finished, start Management Studio (from the Start Menu). Connect to the database with Windows authentication. If you cannot log in try to disable encryption (lower part of login window). Then:
 
 1. Right Click Top Entry in TreeView, which should display the hostname of your node and the instance name as in mywindowsbox\SQLEXPRESS01
 
