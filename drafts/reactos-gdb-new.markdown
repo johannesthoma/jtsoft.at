@@ -48,8 +48,12 @@ Then inside the extracted directory run RosBE-Builder.sh as follows:
     cd RosBE-Unix-2.2.1
     ./RosBE-Builder.sh
 
-Answer the questions
-TODO: do again and check
+Answer the questions (like installation directory)
+We assume that the installation directory is
+
+    /home/johannes/reactos/RosBE
+
+in this document.
 
 ## Step 2: Check out current ReactOS source code
 
@@ -68,7 +72,10 @@ no need to switch branches now.
 
 ## Step 3: Configure and build ReactOS
 
-TODO: switch to RoSBE mode ...
+To build ReactOS you first need to put your shell into
+RoSBE mode. To do so, run 
+
+    /home/johannes/reactos/RosBE/RosBE.sh 
 
 ReactOS is built in separate directories. By doing so
 one can have several different builds and the source
@@ -89,14 +96,18 @@ you need to enable it: configure it with
 
     ../configure.sh -DGDB:BOOL=TRUE -DSEPARATE_DBG:BOOL=TRUE
 
-TODO: recheck this...
-
 ## Step 4: Create a virtual machine using virt install
+
+sudo apt install libvirt-bin
+sudo apt install libvirt-daemon
+sudo apt install qemu
+sudo apt install libvirt-clients
+sudo apt install virtinst
 
 To create a virtual machine, you can use virt-install
 as follows (you may want to adjust some parameters):
 
-    virt-install --name virt-install2 --vcpus 1 --ram 4096 --cdrom ./bootcd.iso --disk size=40 --graphics vnc,port=5970,listen=0.0.0.0 --arch i386
+    virt-install --name reactos --vcpus 1 --ram 4096 --cdrom ./bootcd.iso --disk size=40 --graphics vnc,port=5970,listen=0.0.0.0 --arch i386
 
 TODO: no autostart after install  ...
 TODO: and leave the cdrom attached
@@ -166,6 +177,18 @@ cd reactos-2023/reactos/output-may-2023-2
 ---
 i686-w64-mingw32-gdb
 (also works with normal gdb?)
+	No - debug info source files are wrong (in both cases)
+
+Update: Must use a recent gdb (like 13.2 and up)
+	(I built it from sources)
+	Else Source files will be interpreted wrong
+	(so err.h instead of drbd_nl.c - however the line
+	numbers are correct but not the files, so list
+	and friends (display source on single stepping)
+	do not work).
+
+On 10.43.224.40:
+ ~/gdb-build/gdb-13.2/gdb/gdb
 
 file symbols/ntoskrnl.exe
 add-symbol-file ./symbols/ntoskrnl.exe 0x80801000
@@ -271,3 +294,21 @@ Configure with:
 Enable/disable logging:
 
      p *(int*)(((char*)(&Kd_TCPIP_Mask))+0x80000000) = 0x800
+
+----
+
+Context switch: on i368 there is a task state segment (TSS):
+It is printed by the built in debugger of ReactOS (type bt
+in the ReactOS window)
+
+    p *(struct _KTSS*)0x803FA000
+
+set 3 registers:
+
+    p/x $eip = ((struct _KTSS*)0x803FA000)->Eip
+    p/x $esp = ((struct _KTSS*)0x803FA000)->Esp
+    p/x $ebp = ((struct _KTSS*)0x803FA000)->Ebp
+
+----
+info registers
+info all-registers

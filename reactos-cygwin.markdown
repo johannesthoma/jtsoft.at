@@ -57,6 +57,11 @@ as follows:
 You have successfully installed CygWin under ReactOS. Coming
 up next we will show you how to configure the ssh server.
 
+To list all (32-bit) snapshots available go to
+[http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/index.html](http://ctm.crouchingtigerhiddenfruitbat.org/pub/cygwin/circa/index.html)
+
+Also useful: run setup exe with -X -O -s download-url
+
 Reference: most ideas were taken from [this site](https://morganwu277.github.io/2017/06/04/Setup-Cygwin-in-Windows-XP-2003/). Since
 XP is very similar to ReactOS many XP tips also work under
 ReactOS.
