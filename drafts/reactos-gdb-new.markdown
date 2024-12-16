@@ -309,6 +309,11 @@ set 3 registers:
     p/x $esp = ((struct _KTSS*)0x803FA000)->Esp
     p/x $ebp = ((struct _KTSS*)0x803FA000)->Ebp
 
+or also the tss command
+
+kdb:> tss                                                                       
+Current TSS 0x0028 is at 0x803FC000.                                            
+
 ----
 info registers
 info all-registers

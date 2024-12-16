@@ -30,11 +30,14 @@ make sure x86_64-pc-cygwin-gcc and x86_64-w64-mingw32-g++ are in
 the PATH
 (need to add /root/.zranoe/... to PATH)
 
+PATH=$PATH:/root/.zeranoe/mingw-w64/x86_64/bin
+
 Then:
 
 cd winsup && ./autogen.sh && cd ..
 mkdir build && cd build
 ../configure --host x86_64-pc-cygwin CC_FOR_TARGET=x86_64-pc-cygwin-gcc --disable-doc
+../configure --host x86_64-pc-cygwin CC_FOR_TARGET=x86_64-pc-cygwin-gcc --disable-doc --prefix=/home/johannes/cygwin-build-gcc/sysroot
 make -j 8
 	(will complain about windrbd.h include missing)
 
@@ -44,7 +47,7 @@ cygwin dll:
 cd ./x86_64-pc-cygwin/winsup
 # /cygwin-sources/newlib-cygwin/winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin
 rm ./config.cache
-../../../winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin --disable-dumper
+../../../winsup/configure --srcdir=../../../winsup --cache-file=./config.cache --with-newlib --enable-multilib --disable-doc --program-transform-name=s,y,y, --disable-option-checking --with-target-subdir=x86_64-pc-cygwin --build=x86_64-pc-linux-gnu --host=x86_64-pc-cygwin --target=x86_64-pc-cygwin --prefix=/home/johannes/cygwin-build-gcc/sysroot --disable-dumper
 make -j 8
 
 -----
