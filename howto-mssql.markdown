@@ -62,6 +62,18 @@ To connect to a new instance in SQL Server Management Studio,
 select File / Connect Object Explorer and enter the new
 server\\instance name (instances are SQLEXPRESS01, SQLEXPRESS02 and so on)
 
+# [](#header-2) HammerDB
+
+To set ODBC driver name and connection string, go to:
+
+SQLServer / TPROC-C / Options then a window should pop up
+(if not, just restart HammerDB) where you need to set
+the SQL Server (hostname\instancename for example
+S2019-M2024-5\MSSQLSERVER03) and the driver name.
+
+Use the odbcad32.exe program to find out about installed
+ODBC drivers (Drivers tab).
+
 # [](#header-2) Sample CLI session
 
 Finally I show a short interactive SQL session:
