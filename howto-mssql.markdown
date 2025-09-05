@@ -64,6 +64,10 @@ server\\instance name (instances are SQLEXPRESS01, SQLEXPRESS02 and so on)
 
 # [](#header-2) HammerDB
 
+HammerDB can be downloaded from:
+
+    https://github.com/TPC-Council/HammerDB/releases/download/v4.2/HammerDB-4.2-Win-x64-Setup.exe
+
 To set ODBC driver name and connection string, go to:
 
 SQLServer / TPROC-C / Options then a window should pop up
