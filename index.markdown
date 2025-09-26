@@ -11,8 +11,8 @@ nav_order: 1
 
 This is my personal site about software development and related
 topics. I am Software Developer since many years now (started
-programming at the age of 10 -- 38 years ago) and am specialized
-in systems programming (mostly C stuff).
+programming at the age of 10 -- 41 years ago) and am specialized
+in systems programming (mostly C stuff, but also some Rust now).
 
 I am currently working on Open Source projects on behalf of
 [LINBIT](https://www.linbit.com), a Vienna based company
