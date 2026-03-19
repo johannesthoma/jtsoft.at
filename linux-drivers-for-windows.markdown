@@ -18,12 +18,35 @@ development.
 
 In cross kernel development, one ports kernel mode drivers from one OS kernel (for example, Linux) to another OS kernel (for example, Windows), ideally without changing the source code of the driver itself. This is accomplished by a generic compatibility layer that maps the kernel APIs that the driver would expect (for example, spinlock) to the API of the target kernel (in that case KeAcqireSpinlock). The result of compiling and linking the driver with the compatibility layer is a single driver module that is directly loadable as a native driver into the target OS (in the case of Windows a .sys file).
 
-## Current state (August 2025)
+## Current state (March 2026)
+
+As of March 2026 the Linux kernel can be built as a native Windows
+driver with a separate (virtual) architecture. So
+
+    make ARCH=windows
+
+does something useful. Some drivers are linked into it (device mapper,
+DRBD, some parts of the networking stack), but the rest is mostly
+allnoconfig. Also only 32-bit systems for now (64-bit needs to be
+patched: unsigned long -> ULONG_PTR, since `sizeof(unsigned long)` is
+4 bytes while `sizeof(void*)` is 8 bytes (Linux expects them to be
+the same size)).
+
+The kernel already loads as a native Windows driver and boots until
+where it would exec init. This means that primitives like spinlocks,
+threads, memory allocation, scheduling, ... already work. It is currently
+not planned to support running Linux binaries. If you want to do that,
+use cygwin or WSL2.
+
+The next step would be to get device mapper working
+which would allow people to run lvm natively on a Windows host.
+
+## History
 
 This project originated in WinDRBD which is a port of the LINBIT
 DRBD driver from Linux to Windows.
 
-Recently the 1.2.0 release of WinDRBD was released. Unilike WinDRBD 1.1
+In June 2025 the 1.2.0 release of WinDRBD was released. Unilike WinDRBD 1.1
 and before this release is compiled with the GNU toolchain (gcc, ...)
 instead of the Microsoft Visual C compiler. This allows for tieing
 the code more closely to the Linux kernel since no patches are required
@@ -32,14 +55,10 @@ by MS VC).
 
 ## Next steps
 
-The next step would be to integrate the source code in the Linux kernel
-tree as a separate architecture.
-
-To the linux kernel, the framework will be maintained as a (virtual) architecture (somewhat similar to um linux). Consequently, for building within the source tree you need to specify
-
-    make ARCH=Windows 
-
-There also will be subarchitectures for x86_64 Windows and for i386 Windows/ReactOS (and maybe also for Windows on ARM). 
+The next step would be to make device mapper work so people can use
+logical volume management (lvm) on Windows. Also we are currently
+exploring a file system cross kernel interface which then would
+allow people to use Linux file systems on Windows natively.
 
 ## Disclaimer: What it is NOT
 
