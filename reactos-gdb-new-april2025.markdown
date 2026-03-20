@@ -112,6 +112,10 @@ as follows (you may want to adjust some parameters):
 
     virt-install --name reactos --vcpus 1 --ram 4096 --cdrom ./bootcd.iso --disk size=40 --graphics vnc,port=5970,listen=0.0.0.0 --arch i386
 
+Or on Fedora 42:
+
+    virt-install --name reactos --vcpus 1 --ram 4096 --cdrom ./bootcd.iso --disk size=40 --graphics vnc,port=5970,listen=0.0.0.0 --arch i686 --xml xpath.delete=./features/hyperv
+
 Note that it is important to specify i386 as architecture, else
 debugging will not work.
 
