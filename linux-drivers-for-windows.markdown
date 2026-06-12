@@ -34,12 +34,18 @@ the same size)).
 
 The kernel already loads as a native Windows driver and boots until
 where it would exec init. This means that primitives like spinlocks,
-threads, memory allocation, scheduling, ... already work. It is currently
-not planned to support running Linux binaries. If you want to do that,
-use cygwin or WSL2.
+threads, memory allocation, scheduling, ... already work.
 
 The next step would be to get device mapper working
 which would allow people to run lvm natively on a Windows host.
+
+While doing so I discovered that it is non-trivial to port the
+lvm tools (the userland part of lvm) to ReactOS/Windows (one
+would have to do port the Posix API stuff to Win32 API, which
+isn't fun at all to do), so I decided that it is a good point
+in time to get running Linux userland programs working (with
+a proper system call interface and a working exec() system call,
+plus some helpers to get the console output from Linux).
 
 ## History
 
@@ -55,14 +61,17 @@ by MS VC).
 
 ## Next steps
 
-The next step would be to make device mapper work so people can use
+Currently I am working on making it possible to run userland programs
+with the Linux kernel.
+
+The next step after that would be to make device mapper work so people can use
 logical volume management (lvm) on Windows. Also we are currently
 exploring a file system cross kernel interface which then would
 allow people to use Linux file systems on Windows natively.
 
 ## Disclaimer: What it is NOT
 
-This is not Windows Subsystem for Linux (WSL).
+This is not Windows Subsystem for Linux 2 (WSL2).
 Instead it is a framework for compiling Linux drivers as
 native Windows drivers (without a virtual machine inbetween).
 That means that software running on the Windows host (not in
